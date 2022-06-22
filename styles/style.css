@@ -39,7 +39,7 @@ body button {
 
 #canvas{
   border: 1px solid black;
-  background-image: url(../images/road.png);
+  background-image: url(/images/road.png);
   background-size: cover;
   background-repeat: no-repeat;
 }

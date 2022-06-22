@@ -5,9 +5,18 @@ document.getElementById("start-button").onclick = () => {
 
 let int;
 let score = 0;
+let gameOn = false;
+let racer;
 function startGame() {
-  int = setInterval(addObstacle, 700);
-  animate();
+  racer = document.getElementById("racer").value;
+  console.log("racer", racer);
+  if (!gameOn) {
+    int = setInterval(addObstacle, 700);
+    obstacleArr = [];
+    score = 0;
+    gameOn = true;
+    animate();
+  }
 }
 // };
 
@@ -71,7 +80,7 @@ function animate() {
   game = window.requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.w, canvas.h);
   ctx.font = "24px Ariel";
-  ctx.fillText(`Score: ${score}`, 10, 20);
+  ctx.fillText(`${racer}'s score: ${score}`, 10, 20);
   player.draw();
   // obs.draw();
   for (let i = 0; i < obstacleArr.length; i++) {
@@ -127,9 +136,18 @@ function gameOver() {
   window.cancelAnimationFrame(game);
   //end obstacle interval
   clearInterval(int);
+  gameOn = false;
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.w, canvas.h);
-  ctx.fillStyle = "red";
-  ctx.font = "64px Ariel";
-  ctx.fillText("GAME OVER", 60, 350);
+
+  setInterval(() => {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.w, canvas.h);
+  }, 500);
+
+  setInterval(() => {
+    ctx.fillStyle = "red";
+    ctx.font = "64px Ariel";
+    ctx.fillText("GAME OVER", 60, 350);
+  }, 1000);
 }
